@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import everisImage from "../assets/everis.jpg";
 
@@ -140,17 +135,15 @@ class SignIn extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                component={Link}
+                to={{
+                  pathname: "/login",
+                  state: {
+                    username: { username }
+                  }
+                }}
               >
-                <Link
-                  to={{
-                    pathname: "/login",
-                    state: {
-                      username: { username }
-                    }
-                  }}
-                >
-                  Sign In
-                </Link>
+                Sign In
               </Button>
               <Grid container>
                 <Grid item xs>

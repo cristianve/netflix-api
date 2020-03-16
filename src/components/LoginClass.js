@@ -11,6 +11,11 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Container from "@material-ui/core/Container";
+import ListSubheader from "@material-ui/core/ListSubheader";
+
+import red from "@material-ui/core/colors/red";
+import green from "@material-ui/core/colors/green";
+import blue from "@material-ui/core/colors/blue";
 
 function Copyright() {
   return (
@@ -42,81 +47,73 @@ const styles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  heroContent: {
+    backgroundColor: "#002884",
+    padding: theme.spacing(8, 2, 6)
   }
 }));
 
 const numbers = [
   {
-    id:1,
-    name: "Item 1",
+    id: 1,
+    name: "Item 1"
   },
   {
-    id:2,
-    name: "Item 2",
+    id: 2,
+    name: "Item 2"
   },
   {
-    id:3,
-    name: "Item 3",
+    id: 3,
+    name: "Item 3"
   },
   {
-    id:4,
-    name: "Item 4",
+    id: 4,
+    name: "Item 4"
   }
- 
 ];
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
 
-
-    if(this.props.location.state === undefined){
+    if (this.props.location.state === undefined) {
       this.state = {
         isLoading: true,
         username: "",
-        response: null
+        response: [],
+        backgroundColor: "#cfe8fc"
       };
-    }else{
+    } else {
       this.state = {
         isLoading: true,
         username: this.props.location.state.username,
-        response: null
+        response: [],
+        backgroundColor: "#cfe8fc"
       };
     }
-
   }
   componentDidMount() {
     fetch("http://35.233.0.78/netflix/v1/category")
       .then(response => response.json())
       .then(response => {
         this.setState({
-          response: response
+          response: response.data,
+          backgroundColor: response.data[0].color
         });
       })
       .catch(error => this.setState({ error, isLoading: false }));
   }
 
   render() {
-    
-    //const { classes } = this.props;
+    const { classes } = this.props;
     const { username } = this.state.username;
-    console.log(this.state);
+    const { response } = this.state.response;
+    const { state } = this.state;
 
-    if ((this.state.isLoading === false)) {
+    if (this.state.isLoading === false) {
       return (
         <div>
-        <h1>Usuario: {username} </h1>
-        <Typography variant="h5" align="center" color="textSecondary" paragraph>
-          Error: No se ha podido cargar correctamente el JSON!
-        </Typography>
-        </div>
-      );
-    } else {
-      return (
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <br />
-          <br />
           <h1>Usuario: {username} </h1>
           <Typography
             variant="h5"
@@ -124,23 +121,58 @@ class SignIn extends React.Component {
             color="textSecondary"
             paragraph
           >
-            Respuesta JSON:
+            Error: No se ha podido cargar correctamente el JSON!
           </Typography>
-         
+        </div>
+      );
+    } else {
+     
+      console.log(this.state);
+      return (
 
-          {numbers.map(array => (
-            
-            <List component="nav" aria-label="main mailbox folders">
-              <ListItem button>
-                <ListItemText id={array.id} primary={array.name} />
-              </ListItem>
-            </List>
-          ))}
+        <div className={classes.heroContent}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Typography
+              component="div"
+              style={{ backgroundColor: this.state.backgroundColor, height: "100vh" }}
+            >
+              <br />
+              <br />
+              <h1>Usuario: {username} </h1>
+              <Typography
+                variant="h5"
+                align="center"
+                color="textSecondary"
+                paragraph
+              >
+                Respuesta JSON:
+              </Typography>
 
-          <Box mt={8}>
-            <Copyright />
-          </Box>
-        </Container>
+              {this.state.response.map(array => (
+                <List
+                  subheader={
+                    <ListSubheader>Listado Tipo -- Available:</ListSubheader>
+                  }
+                  component="nav"
+                  aria-label="main mailbox folders"
+                >
+                  <ListItem button>
+                    <ListItemText
+                      align="center"
+                      id={array.id}
+                      primary={array.name + " --> " + array.available}
+                    />
+                  </ListItem>
+                </List>
+              ))}
+
+              <Box mt={8}>
+                <Copyright />
+              </Box>
+            </Typography>
+          </Container>
+        </div>
       );
     }
   }
