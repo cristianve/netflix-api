@@ -5,6 +5,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### ------------------- ###
+###  DOCKER INSTRUCTIONS ###
+### ------------------- ###
+
+
+
+# docker build -t name:v1 .
+# docker run -p 3000:3000  name:v1
+# Browser URL : http://localhost:3000/
 
 
 
