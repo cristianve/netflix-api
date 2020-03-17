@@ -108,9 +108,6 @@ class SignIn extends React.Component {
     const { username } = this.state.username;
 
     const everis = "Everis";
-    {
-      /** SI NO PUEDE CARGAR EL JSON*/
-    }
     if (this.state.isLoading === false) {
       return (
         <div>
@@ -127,10 +124,8 @@ class SignIn extends React.Component {
         </div>
       );
     } else {
-      {
-        /**CARGA CORRECTAMENTE EL JSON */
-      }
       return (
+        //JSON CARGADO CORRECTAMENTE
         <div className={classes.heroContent}>
           <CssBaseline />
           <Header title={everis} />
@@ -161,7 +156,7 @@ class SignIn extends React.Component {
                 <Grid container justify="center">
                   {this.state.response.map((array, index) => (
                     <List
-                    
+                      key={index}
                       subheader={
                         <ListSubheader>
                           Listado Tipo -- Available:
@@ -170,7 +165,7 @@ class SignIn extends React.Component {
                       component="nav"
                       aria-label="main mailbox folders"
                     >
-                      <ListItem  key={index} button>
+                      <ListItem   button>
                         <Button
                           variant="contained"
                           color="primary"

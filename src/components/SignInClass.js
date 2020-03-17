@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
 import everisImage from "../assets/everis.jpg";
 
@@ -129,35 +129,33 @@ class SignIn extends React.Component {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-             
-                
-                <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
+
+              <Button
                 component={Link}
                 to={{
                   pathname: "/login",
                   state: {
                     username: { username }
-                  }}}
-                className={classes.submit}>
+                  }
+                }}
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
                 Sign In
-                </Button>
-           
+              </Button>
 
-              
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <LinkMaterialUI href="#" variant="body2">
                     Forgot password?
-                  </Link>
+                  </LinkMaterialUI>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <LinkMaterialUI href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
-                  </Link>
+                  </LinkMaterialUI>
                 </Grid>
               </Grid>
               <Box mt={5}>
