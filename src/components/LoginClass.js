@@ -165,7 +165,7 @@ class SignIn extends React.Component {
                       component="nav"
                       aria-label="main mailbox folders"
                     >
-                      <ListItem   button>
+                      <ListItem button>
                         <Button
                           variant="contained"
                           color="primary"
@@ -174,7 +174,6 @@ class SignIn extends React.Component {
                           startIcon={<ListIcon />}
                         >
                           <ListItemText
-                          
                             align="center"
                             id={array.id}
                             primary={array.name + "  " + array.available}
