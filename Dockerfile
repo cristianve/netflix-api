@@ -22,4 +22,9 @@ RUN npm run build
 EXPOSE 3000
 CMD ["npm", "start"]
 
+
+###DOCKER INSTRUCTIONS###
+# docker build -t name:v1 .
+# docker run -p 3000:3000  name:v1
 # Browser URL : http://localhost:3000/
+#####################
