@@ -1,5 +1,5 @@
+import {Link} from 'react-router-dom';
 import React from "react";
-import { BrowserRouter as Link } from "react-router-dom";
 
 import everisImage from "../assets/everis.jpg";
 
@@ -130,21 +130,14 @@ class SignIn extends React.Component {
                 label="Remember me"
               />
 
-              <Button
-                component={Link}
-                to={{
+              <Button component={Link} to={{
                   pathname: "/login",
                   state: {
                     username: { username }
                   }
-                }}
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-              >
-                Sign In
-              </Button>
+              }} variant="contained" color="primary">
+                  Sign in
+                </Button>
 
               <Grid container>
                 <Grid item xs>
