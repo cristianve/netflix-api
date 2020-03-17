@@ -8,14 +8,18 @@ import LinkMaterialUI from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Container from "@material-ui/core/Container";
 import ListSubheader from "@material-ui/core/ListSubheader";
-
-import red from "@material-ui/core/colors/red";
-import green from "@material-ui/core/colors/green";
-import blue from "@material-ui/core/colors/blue";
+import ListIcon from "@material-ui/icons/List";
+import Button from "@material-ui/core/Button";
+import Header from "./Header";
+import MainFeaturedPost from "./MainFeaturedPost";
+import MainFeaturedResponse from "./MainFeaturedResponse";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 
 function Copyright() {
   return (
@@ -30,6 +34,19 @@ function Copyright() {
   );
 }
 
+const mainFeaturedPost = {
+  title: "Usuario Logeado",
+  description: "Welcome, tú nombre de usuario es :",
+  image: "https://source.unsplash.com/random",
+  imgText: "Main Banner Image Description"
+};
+
+const mainFeaturedPostJSON = {
+  title: "Respuesta JSON:",
+  description: "",
+  image: "https://source.unsplash.com/random",
+  imgText: "Main Banner Image Description"
+};
 const styles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -54,25 +71,6 @@ const styles = makeStyles(theme => ({
   }
 }));
 
-const numbers = [
-  {
-    id: 1,
-    name: "Item 1"
-  },
-  {
-    id: 2,
-    name: "Item 2"
-  },
-  {
-    id: 3,
-    name: "Item 3"
-  },
-  {
-    id: 4,
-    name: "Item 4"
-  }
-];
-
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -82,14 +80,14 @@ class SignIn extends React.Component {
         isLoading: true,
         username: "",
         response: [],
-        backgroundColor: "#cfe8fc"
+        backgroundColor: ""
       };
     } else {
       this.state = {
         isLoading: true,
         username: this.props.location.state.username,
         response: [],
-        backgroundColor: "#cfe8fc"
+        backgroundColor: ""
       };
     }
   }
@@ -108,12 +106,15 @@ class SignIn extends React.Component {
   render() {
     const { classes } = this.props;
     const { username } = this.state.username;
-    const { response } = this.state.response;
-    const { state } = this.state;
 
+    const everis = "Everis";
+    {
+      /** SI NO PUEDE CARGAR EL JSON*/
+    }
     if (this.state.isLoading === false) {
       return (
         <div>
+          <Header title={everis} />
           <h1>Usuario: {username} </h1>
           <Typography
             variant="h5"
@@ -126,52 +127,75 @@ class SignIn extends React.Component {
         </div>
       );
     } else {
-     
-      console.log(this.state);
+      {
+        /**CARGA CORRECTAMENTE EL JSON */
+      }
       return (
-
         <div className={classes.heroContent}>
+          <CssBaseline />
+          <Header title={everis} />
+          <MainFeaturedPost post={mainFeaturedPost} />
           <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Typography
-              component="div"
-              style={{ backgroundColor: this.state.backgroundColor, height: "100vh" }}
-            >
-              <br />
-              <br />
-              <h1>Usuario: {username} </h1>
-              <Typography
-                variant="h5"
-                align="center"
-                color="textSecondary"
-                paragraph
-              >
-                Respuesta JSON:
-              </Typography>
-
-              {this.state.response.map(array => (
-                <List
-                  subheader={
-                    <ListSubheader>Listado Tipo -- Available:</ListSubheader>
-                  }
-                  component="nav"
-                  aria-label="main mailbox folders"
-                >
-                  <ListItem button>
-                    <ListItemText
-                      align="center"
-                      id={array.id}
-                      primary={array.name + " --> " + array.available}
-                    />
-                  </ListItem>
-                </List>
-              ))}
-
-              <Box mt={8}>
-                <Copyright />
-              </Box>
-            </Typography>
+            <Grid container justify="center" alignItems="center" spacing={4}>
+              <Grid item xs={12}>
+                <Paper>
+                  <Typography
+                    style={{ marginBottom: 24 }}
+                    variant="h3"
+                    align="center"
+                  >
+                    {username}
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
           </Container>
+          <MainFeaturedResponse
+            post={mainFeaturedPostJSON}
+            backgroundColor={this.state.backgroundColor}
+          />
+
+          <Grid container justify="center" alignItems="center" spacing={4}>
+            <Grid item xs={12}>
+              <Paper>
+                <Grid container justify="center">
+                  {this.state.response.map((array, index) => (
+                    <List
+                    
+                      subheader={
+                        <ListSubheader>
+                          Listado Tipo -- Available:
+                        </ListSubheader>
+                      }
+                      component="nav"
+                      aria-label="main mailbox folders"
+                    >
+                      <ListItem  key={index} button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          size="large"
+                          className={classes.button}
+                          startIcon={<ListIcon />}
+                        >
+                          <ListItemText
+                          
+                            align="center"
+                            id={array.id}
+                            primary={array.name + "  " + array.available}
+                          />
+                        </Button>
+                      </ListItem>
+                      <ArrowDownwardIcon />
+                    </List>
+                  ))}
+                </Grid>
+              </Paper>
+            </Grid>
+          </Grid>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
         </div>
       );
     }

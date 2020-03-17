@@ -129,22 +129,25 @@ class SignIn extends React.Component {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Button
+             
+                
+                <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
                 component={Link}
                 to={{
                   pathname: "/login",
                   state: {
                     username: { username }
-                  }
-                }}
-              >
+                  }}}
+                className={classes.submit}>
                 Sign In
-              </Button>
+                </Button>
+           
+
+              
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
